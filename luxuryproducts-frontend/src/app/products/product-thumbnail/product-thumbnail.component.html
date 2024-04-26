@@ -1,0 +1,18 @@
+<div class="d-flex navbar-style">
+  <div class="p-2 w-100">
+    <div class="col-md-4">
+      <img src="{{product.img}}" class="img-fluid rounded-start img-responsive rounded-end" style="max-height: 150px;" alt="...">
+    </div>
+      <div class="align-items-center">
+      <h5>{{ product.brand }} - {{ product.name }}</h5>
+      <p>{{ product.price | currency }}</p>
+    </div>
+  </div>
+  <div class="p-2 flex-shrink-1">
+    <a [routerLink]="[product.id]" class="btn btn-secondary">
+      Show detail</a>
+    <button (click)="buyProduct(product)" class="btn btn-primary float-right">
+      Buy</button>
+  </div>
+</div>
+<hr>
