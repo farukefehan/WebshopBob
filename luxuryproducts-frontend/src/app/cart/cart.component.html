@@ -4,28 +4,26 @@
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
       </div>
-      @for (product of products_in_cart; track $index){
-      <div class="card rounded-3 mb-4">
-        <div class="card-body p-4 navbar-style">
-          <div class="row d-flex justify-content-between align-items-center" id="te">
-            <div class="col-md-2 col-lg-2 col-xl-2">
-              <img src="{{product.img}}" class="img-fluid rounded-3" alt="...">
-            </div>
-            <div class="col-md-3 col-lg-3 col-xl-3" id="nav-color">
-              <p class="lead fw-normal mb-2">{{product.brand}} {{product.name}}</p>
-            </div>
-            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" id="nav-color">
-              <h5 class="mb-0">{{product.price | currency }}</h5>
-            </div>
-            <div class="col-md-1 col-lg-1 col-xl-1 text-end" id="nav-color">
-              <a (click)="removeProductFromCart($index)" class="text-danger">
-                Delete
-              </a>
+      <ng-container *ngFor="let product of products_in_cart; let i = index">
+        <div class="card rounded-3 mb-4">
+          <div class="card-body p-4 navbar-style">
+            <div class="row d-flex justify-content-between align-items-center" id="te">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img [src]="product.img" class="img-fluid rounded-3" alt="...">
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-3" id="nav-color">
+                <p class="lead fw-normal mb-2">{{ product.brand }} {{ product.name }}</p>
+              </div>
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" id="nav-color">
+                <h5 class="mb-0">{{ product.price | currency }}</h5>
+              </div>
+              <div class="col-md-1 col-lg-1 col-xl-1 text-end" id="nav-color">
+                <a (click)="removeProductFromCart(i)" class="text-danger">Delete</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      }
+      </ng-container>
       <div class="col-md-12 mt-5 navbar-style">
         <div class="d-flex justify-content-end mb-4">
           <div>
@@ -35,6 +33,11 @@
               </ng-container>
             </ul>
             <p>Total Price: {{ getTotalPrice() | currency }}</p>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Enter promo code" [(ngModel)]="promoCode">
+              <button class="btn btn-outline-secondary" (click)="applyPromoCode()">Apply</button>
+            </div>
+            <p *ngIf="discountedPrice !== null">Discounted Price: {{ discountedPrice | currency }}</p>
             <button (click)="placeOrder()" class="btn btn-danger">Place order</button>
           </div>
         </div>

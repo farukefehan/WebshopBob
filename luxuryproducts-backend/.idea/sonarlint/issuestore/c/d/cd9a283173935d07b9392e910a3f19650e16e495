@@ -1,0 +1,11 @@
+
+]	java:S125%"<This block of commented-out lines of code should be removed.(³§Šøÿÿÿÿÿ8…Úº¹ú1
+]	java:S125)"<This block of commented-out lines of code should be removed.(‘íÏĞıÿÿÿÿ8ˆÚº¹ú1
+o
+java:S1128"RRemove this unused import 'com.fasterxml.jackson.annotation.JsonManagedReference'.(Æ˜µ8´¹ÈÍú1
+X
+java:S1128"6Remove this unused import 'lombok.AllArgsConstructor'.(´œ¾öùÿÿÿÿ8´¹ÈÍú1
+J
+java:S1128"(Remove this unused import 'lombok.Data'.(÷í«ÿÿÿÿÿ8µ¹ÈÍú1
+R
+java:S1128"5Remove this unused import 'lombok.NoArgsConstructor'.(¸¨›8µ¹ÈÍú1

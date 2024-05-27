@@ -7,6 +7,7 @@ import com.example.todoappdeel3.models.Category;
 import com.example.todoappdeel3.models.CustomUser;
 import com.example.todoappdeel3.models.Order;
 import com.example.todoappdeel3.models.Product;
+import com.example.todoappdeel3.models.enume.RoleType;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,10 +32,11 @@ public class Seeder {
     @EventListener
     public void seed(ContextRefreshedEvent event){
         List<CustomUser> users = this.userRepository.findAll();
-//        if (!users.isEmpty()) { return; }
+        if (!users.isEmpty()) { return; }
 
         this.seedProducts();
         this.seedUser();
+        this.seedAdmin();
     }
 
     private void seedProducts(){
@@ -53,22 +55,29 @@ public class Seeder {
         Product luxurySkiPant = new Product("Designer Thermal Ski Pants", "Bogner", "High-fashion insulated ski pants offering maximum warmth and mobility, with stylish detailing.", 650.00, luxurySkiPants, "URL_TO_IMAGE");
         Product luxurySkiJacket = new Product("Diamond-Encrusted Ski Jacket", "Moncler", "Sophisticated ski jacket adorned with genuine diamonds, providing ultimate warmth and luxury.", 5000.00, luxurySkiJackets, "URL_TO_IMAGE");
 
+        this.productDAO.createProduct(luxuryHelmet);
+        this.productDAO.createProduct(luxurySki);
+
         List<Product> products = new ArrayList<>(){};
-        products.add(luxuryHelmet);
-        products.add(luxurySki);
-        products.add(luxurySkiBoot);
-        products.add(luxurySkiPant);
-        products.add(luxurySkiJacket);
+
 
         Order firstOrder = new Order("bob@webshopbobenterprise.com", 10.69, products);
         this.orderDAO.createOrder(firstOrder);
 
-//        List<Product> productList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
     }
 
     private void seedUser(){
         CustomUser customUser = new CustomUser();
         customUser.setEmail("bob@bobsluxuryenterprise.com");
+        customUser.setRole(RoleType.USER);
+        customUser.setPassword(new BCryptPasswordEncoder().encode("IL0vePupp1es!"));
+        userRepository.save(customUser);
+    }
+    private void seedAdmin(){
+        CustomUser customUser = new CustomUser();
+        customUser.setEmail("admin@bobsluxuryenterprise.com");
+        customUser.setRole(RoleType.ADMIN);
         customUser.setPassword(new BCryptPasswordEncoder().encode("IL0vePupp1es!"));
         userRepository.save(customUser);
     }

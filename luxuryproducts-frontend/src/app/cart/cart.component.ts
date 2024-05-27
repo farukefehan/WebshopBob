@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyPipe, NgFor } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgFor } from '@angular/common';
 
 import { CartService } from '../services/cart.service';
 import { Product } from '../models/product.model';
 import { TokenService } from '../services/token.service';
 import { OrderService } from '../services/order.service';
 import { Order } from '../models/order.model';
+import { CouponService } from '../services/coupon.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CurrencyPipe, NgFor],
+  imports: [CurrencyPipe, CommonModule, FormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -18,7 +20,7 @@ export class CartComponent implements OnInit {
   public products_in_cart: Product[];
   public order: Order = new Order();
 
-  constructor(private cartService: CartService, private tokenService: TokenService, private orderService: OrderService) { }
+  constructor(private couponService:CouponService,private cartService: CartService, private tokenService: TokenService, private orderService: OrderService) { }
 
   ngOnInit() {
     this.products_in_cart = this.cartService.allProductsInCart();
@@ -54,11 +56,37 @@ export class CartComponent implements OnInit {
 
   public placeOrder() {
     this.order.email = this.tokenService.loadEmail();
-    this.order.totalPrice = this.getTotalPrice();
+    if (this.discountedPrice !== null && this.discountedPrice !== this.getTotalPrice()){
+        this.order.totalPrice = this.discountedPrice;
+      this.orderService.addOrderwithCoupon(this.order,this.promoCode).subscribe(() => {});
+    }
+    else{
+      this.order.totalPrice = this.getTotalPrice();
+      this.orderService.addOrderwithOutCoupon(this.order).subscribe(() => {});
+
+    }
     this.order.items = this.products_in_cart;
     console.log(this.products_in_cart);
 
-    this.orderService.addOrder(this.order).subscribe(() => {});
     this.clearCart();
+  }
+  promoCode: string = '';
+  discountedPrice: number ;
+
+  applyPromoCode() {
+    console.log(this.products_in_cart)
+    if (this.promoCode) {
+      this.couponService.applyPromoCode(this.promoCode,this.products_in_cart).subscribe(
+        (response: any) => {
+          // Assuming response contains the discount amount or discounted total price
+          const discount = response.discount; // Adjust this based on your actual response
+          this.discountedPrice = this.getTotalPrice() - discount;
+        },
+        (error) => {
+          console.error('Invalid promo code', error);
+          alert('Invalid promo code');
+        }
+      );
+    }
   }
 }

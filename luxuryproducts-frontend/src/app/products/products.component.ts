@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CartService } from '../services/cart.service';
 import { Product } from '../models/product.model';
@@ -7,14 +7,13 @@ import { ProductsService } from '../services/products.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   public products: Product[] = new Array<Product>();
   public loadingProducts: boolean = true;
 
-  constructor(private productsService: ProductsService, private cartService: CartService) {
-  }
+  constructor(private productsService: ProductsService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.productsService
@@ -25,7 +24,7 @@ export class ProductsComponent {
       });
   }
 
-  public onBuyProduct(product: Product) {
-    this.cartService.addProductToCart(product)
+  public onBuyProduct(product: Product): void {
+    this.cartService.addProductToCart(product);
   }
 }

@@ -9,13 +9,21 @@ export class TokenService {
   private _localStorageTokenKey: string = 'token';
 
   private _localStorageEmailKey: string = 'email';
+  private _localStorageRolelKey: string = 'role';
+
 
   constructor() { }
 
   public storeToken(token: string){
     localStorage.setItem(this._localStorageTokenKey, token);
   }
+  public setRole(role:string){
+    localStorage.setItem(this._localStorageRolelKey, role);
+  } 
+  public loadRole(): string | null{
+    return localStorage.getItem(this._localStorageRolelKey);
 
+  }
   public loadToken(): string | null {
     return localStorage.getItem(this._localStorageTokenKey);
   }
@@ -58,6 +66,9 @@ export class TokenService {
     // bijvoorbeeld validatie of de issuer (iss) overeen komt..
   
     return true;
+  }
+  public clear() {
+      localStorage.clear();
   }
 
 }

@@ -24,8 +24,12 @@ export class OrderService {
     }
   }
 
-  public addOrder(order: Order): Observable<Order> {
+  public addOrderwithCoupon(order: Order,coupon:string): Observable<Order> {
     const headers = this.getHeaders();
-    return this.http.post<Order>(this.baseUrl, order, {headers: headers});
+    return this.http.post<Order>(this.baseUrl+'/withcode?code='+`${coupon}`, order, {headers: headers});
+  }
+  public addOrderwithOutCoupon(order: Order): Observable<Order> {
+    const headers = this.getHeaders();
+    return this.http.post<Order>(this.baseUrl+'/withoutcode', order, {headers: headers});
   }
 }

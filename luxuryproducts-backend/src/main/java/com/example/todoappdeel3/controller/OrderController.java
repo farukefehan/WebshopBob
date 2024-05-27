@@ -22,9 +22,14 @@ public class OrderController {
         return ResponseEntity.ok(this.orderDAO.getAllOrders());
     }
 
-    @PostMapping
-    public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO){
-        this.orderDAO.createOrder(orderDTO);
+    @PostMapping("/withoutcode")
+    public ResponseEntity<String> createOrderwithoutcode(@RequestBody OrderDTO orderDTO){
+        this.orderDAO.createOrderWithOutCoupon(orderDTO);
+        return ResponseEntity.ok("Created new order");
+    }
+    @PostMapping("/withcode")
+    public ResponseEntity<String> createOrder(@RequestParam String code,@RequestBody OrderDTO orderDTO){
+        this.orderDAO.createOrderWithCode(orderDTO, code);
         return ResponseEntity.ok("Created new order");
     }
 }

@@ -5,6 +5,7 @@ import com.example.todoappdeel3.dao.UserRepository;
 import com.example.todoappdeel3.dto.AuthenticationDTO;
 import com.example.todoappdeel3.dto.LoginResponse;
 import com.example.todoappdeel3.models.CustomUser;
+import com.example.todoappdeel3.models.enume.RoleType;
 import com.example.todoappdeel3.services.CredentialValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,12 +60,42 @@ public class AuthController {
         String encodedPassword = passwordEncoder.encode(authenticationDTO.password);
 
         CustomUser registerdCustomUser = new CustomUser(authenticationDTO.email, encodedPassword);
+        registerdCustomUser.setRole(RoleType.USER);
         userDAO.save(registerdCustomUser);
         String token = jwtUtil.generateToken(registerdCustomUser.getEmail());
-        LoginResponse loginResponse = new LoginResponse(registerdCustomUser.getEmail(), token);
+        LoginResponse loginResponse = new LoginResponse(registerdCustomUser.getEmail(), token,registerdCustomUser.getRole());
         return ResponseEntity.ok(loginResponse);
     }
+    @PostMapping("/registerAdmin")
+    public ResponseEntity<LoginResponse> registerAdmin(@RequestBody AuthenticationDTO authenticationDTO) {
+        if (!validator.isValidEmail(authenticationDTO.email)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "No valid email provided"
+            );
+        }
 
+        if (!validator.isValidPassword(authenticationDTO.password)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "No valid password provided"
+            );
+        }
+
+        CustomUser customUser = userDAO.findByEmail(authenticationDTO.email);
+
+        if (customUser != null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Can not register with this email"
+            );
+        }
+        String encodedPassword = passwordEncoder.encode(authenticationDTO.password);
+
+        CustomUser registerdCustomUser = new CustomUser(authenticationDTO.email, encodedPassword);
+        registerdCustomUser.setRole(RoleType.ADMIN);
+        userDAO.save(registerdCustomUser);
+        String token = jwtUtil.generateToken(registerdCustomUser.getEmail());
+        LoginResponse loginResponse = new LoginResponse(registerdCustomUser.getEmail(), token,registerdCustomUser.getRole());
+        return ResponseEntity.ok(loginResponse);
+    }
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO body) {
         try {
@@ -76,7 +107,7 @@ public class AuthController {
             String token = jwtUtil.generateToken(body.email);
 
             CustomUser customUser = userDAO.findByEmail(body.email);
-            LoginResponse loginResponse = new LoginResponse(customUser.getEmail(), token);
+            LoginResponse loginResponse = new LoginResponse(customUser.getEmail(), token,customUser.getRole());
 
 
             return ResponseEntity.ok(loginResponse);

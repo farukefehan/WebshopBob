@@ -10,8 +10,8 @@ import { TokenService } from './token.service';
 })
 export class AuthService {
 
-  private _loginEndpoint: string = 'http://s1142864.student.inf-hsleiden.nl:22864/api/auth/login';
-  private _registerEndpoint: string = 'http://s1142864.student.inf-hsleiden.nl:22864/api/auth/register';
+  private _loginEndpoint: string = 'http://localhost:8080/api/auth/login';
+  private _registerEndpoint: string = 'http://localhost:8080/api/auth/register';
 
   // private _loginEndpoint: string = 'http://localhost:8080/api/auth/login';
   // private _registerEndpoint: string = 'http://localhost:8080/api/auth/register';
@@ -32,6 +32,7 @@ export class AuthService {
         tap((authResponse: AuthResponse) => {
           this.tokenService.storeToken(authResponse.token);
           this.tokenService.storeEmail(authResponse.email);
+          this.tokenService.setRole(authResponse.roleType);
           this.$userIsLoggedIn.next(true);
         })
       );
@@ -44,6 +45,7 @@ export class AuthService {
       tap((authResponse: AuthResponse) => {
         this.tokenService.storeToken(authResponse.token);
         this.tokenService.storeEmail(authResponse.email);
+        this.tokenService.setRole(authResponse.roleType);
         this.$userIsLoggedIn.next(true);
       })
     );
@@ -52,5 +54,8 @@ export class AuthService {
   public logOut(): void{
     this.tokenService.removeToken();
     this.$userIsLoggedIn.next(false);
+  }
+  public saveUser(data: {email:string; password: string }) {
+    return this.http.post(this._registerEndpoint, data)
   }
 }

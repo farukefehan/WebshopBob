@@ -3,6 +3,9 @@ package com.example.todoappdeel3.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -20,6 +23,15 @@ public class Product {
     private String img;
 
     private boolean isFinished = false;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PromoCode> promoCodes;
+    public List<PromoCode> getPromoCodes() {
+        return promoCodes;
+    }
+
+    public void setPromoCodes(List<PromoCode> promoCodes) {
+        this.promoCodes = promoCodes;
+    }
 
 //    @OneToMany(mappedBy = "product")
 //    private List<OrderProduct> orderProducts;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit{
   
   public registerForm: FormGroup;
   
-  constructor(private fb: FormBuilder, private authService: AuthService){
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router){
 
   }
 
@@ -29,6 +30,43 @@ export class RegisterComponent implements OnInit{
   }
 
   public onSubmit(): void{
-    console.log('ok');
+   
+    if (this.registerForm.valid) {
+      this.router.navigate(['/'])
+      const authRequest = {
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password
+       
+      };
+ 
+      this.authService.register(authRequest).subscribe(
+        () => {
+          // Registration successful
+          console.log('Registration successful');
+          this.authService.saveUser(authRequest).subscribe((result)=>{
+            console.warn(result)
+          })
+          // Optionally, you can redirect the user to a different page or display a success message.
+        },
+        error => {
+          // Registration failed, handle the error
+          console.error('Registration failed:', error);
+          // Optionally, you can display an error message to the user.
+        }
+      );
+    } else {
+      // Form is invalid, do not submit or handle accordingly
+      console.log('Form is invalid');
+      // Optionally, you can display a message to the user indicating that the form is invalid.
+    }
+ 
+ 
+ 
+  } 
+ 
+ 
+ 
+
+
   }
-}
+

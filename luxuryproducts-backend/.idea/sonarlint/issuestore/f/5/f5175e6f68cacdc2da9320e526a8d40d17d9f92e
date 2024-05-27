@@ -1,0 +1,9 @@
+
+
+java:S1488@"bImmediately return this expression instead of assigning it to the temporary variable "promoCodes".(÷õÂ×8·¿çæú1
+m
+java:S3655"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ìËùä8Ï¿çæú1
+L	java:S106-"+Replace this use of System.out by a logger.(²…Ù·øÿÿÿÿ8Ù¿çæú1
+L	java:S106E"+Replace this use of System.out by a logger.(Úž¿Ãùÿÿÿÿ8Ó‘õæú1
+Q
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëÝüÿÿÿÿ8€…‹çú1

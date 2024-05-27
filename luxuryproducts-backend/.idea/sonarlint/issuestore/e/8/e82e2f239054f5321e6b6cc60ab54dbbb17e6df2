@@ -1,0 +1,23 @@
+
+h
+java:S11924"MDefine a constant instead of duplicating this literal "URL_TO_IMAGE" 5 times.(è’‘·ùÿÿÿÿ
+Z
+java:S1854C"?Remove this useless assignment to local variable "productList".(È·ÙÁøÿÿÿÿ
+^
+java:S18548"CRemove this useless assignment to local variable "luxurySkiJacket".(ˆÛŞŞøÿÿÿÿ
+\
+java:S18547"ARemove this useless assignment to local variable "luxurySkiPant".(àšÍöûÿÿÿÿ
+W
+java:S18546"ARemove this useless assignment to local variable "luxurySkiBoot".(íÌŒ
+H
+java:S14816"2Remove this unused "luxurySkiBoot" local variable.(íÌŒ
+M
+java:S14817"2Remove this unused "luxurySkiPant" local variable.(àšÍöûÿÿÿÿ
+O
+java:S14818"4Remove this unused "luxurySkiJacket" local variable.(ˆÛŞŞøÿÿÿÿ
+K
+java:S1481C"0Remove this unused "productList" local variable.(È·ÙÁøÿÿÿÿ
+Q
+java:S6437J"6Revoke and change this password, as it is compromised.(”ÏşÑùÿÿÿÿ
+X
+java:S6437Q"6Revoke and change this password, as it is compromised.(”ÏşÑùÿÿÿÿ8Ëø¼ú1

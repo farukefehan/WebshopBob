@@ -1,0 +1,57 @@
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-10 col-12">
+                <h4 class="page-title">Promo Codes</h4>
+            </div>
+            <div class="col-sm-2 col-3 text-right m-b-20">
+                <a (click)="navigatetoAddPromo()" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> add Coupon</a>
+            </div>
+        </div>
+  <div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-border table-striped custom-table datatable mb-0">
+        <thead>
+          <tr>
+            <th>code</th>
+            <th>discountType</th>
+            <th>discountValue</th>
+            <th>validFrom</th>
+            <th>validUntil</th>
+            <th>maxUsage</th>
+            <th>currentUsage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of promocodes">
+            <td>{{p.code}} </td>
+            <td>{{p.discountType}}</td>
+            <td>{{p.discountValue}} </td>
+            <td>{{p.validFrom}}</td>
+            <td>{{p.validUntil}}</td>
+            <td>{{p.maxUsage}}</td>
+            <td>{{p.currentUsage}}</td>
+
+      </tbody>
+    </table>
+  </div>
+  </div>
+      </div>
+  </div>
+  
+  </div>
+  <div id="delete_patient" class="modal fade delete-modal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+  <div class="modal-body text-center">
+  <img src="/assets/admin/img/sent.png" alt="" width="50" height="46">
+  <h3>¿Estás seguro de que deseas eliminar esta publicación?</h3>
+  <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Cerca</a>
+    <button type="submit"  class="btn btn-danger" data-dismiss="modal" >Borrar</button>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  </div>

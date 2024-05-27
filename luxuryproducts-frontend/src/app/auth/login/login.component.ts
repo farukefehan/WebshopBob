@@ -30,7 +30,18 @@ export class LoginComponent implements OnInit{
       .login(this.loginForm.value)
       .subscribe((authReponse: AuthResponse) => {
         console.log('AuthResponse: ', authReponse);
-        this.router.navigate(['']);
+        if(authReponse.roleType==='ADMIN'){
+          window.location.href = '/promoCodes';        }
+        else{
+          window.location.href = '/';        }
+       
       });
+  }
+  refreshAndNavigate(url: string[]) {
+    // Navigate to the current URL to refresh the page
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      // After the navigation, navigate to the desired URL
+      this.router.navigate(url);
+    });
   }
 }

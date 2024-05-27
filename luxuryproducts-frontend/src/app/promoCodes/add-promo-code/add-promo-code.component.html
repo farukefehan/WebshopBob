@@ -1,0 +1,44 @@
+<!-- promo-code-form.component.html -->
+    
+<form action="#" #addform="ngForm" (ngSubmit)="addPromo(addform)" >
+    <div class="form-group">
+      <label for="code">Code:</label>
+      <input type="text" class="form-control" id="code" name="code" ngModel required minlength="6" maxlength="6">
+    </div>
+    
+    <div class="form-group">
+      <label for="discountType">Discount Type:</label>
+      <select class="form-control" id="discountType" name="discountType" ngModel required>
+        <option value="PERCENTAGE">Percentage</option>
+        <option value="FIXED_AMOUNT">Fixed Amount</option>
+      </select>
+    </div>
+    <div *ngIf="products.length > 0 ">
+      <label for="product">Product List:</label>
+      <select class="form-control" id="product" name="product" ngModel required>
+        <option *ngFor="let p of products" [value]="p.id">{{ p.name }} - {{ p.price }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="discountValue">Discount Value:</label>
+      <input type="number" class="form-control" id="discountValue" name="discountValue" ngModel required>
+    </div>
+    
+    <div class="form-group">
+      <label for="validFrom">Valid From:</label>
+      <input type="datetime-local" class="form-control" id="validFrom" name="validFrom" ngModel required>
+    </div>
+    
+    <div class="form-group">
+      <label for="validUntil">Valid Until:</label>
+      <input type="datetime-local" class="form-control" id="validUntil" name="validUntil" ngModel required>
+    </div>
+    
+    <div class="form-group">
+      <label for="maxUsage">Max Usage:</label>
+      <input type="number" class="form-control" id="maxUsage" name="maxUsage" ngModel required>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  

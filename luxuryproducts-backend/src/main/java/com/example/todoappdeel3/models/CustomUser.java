@@ -1,8 +1,7 @@
 package com.example.todoappdeel3.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.todoappdeel3.models.enume.RoleType;
+import jakarta.persistence.*;
 
 @Entity(name = "Users")
 public class CustomUser {
@@ -12,6 +11,17 @@ public class CustomUser {
 
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
+
+
 
     public CustomUser() {
     }

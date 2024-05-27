@@ -12,17 +12,23 @@
           <a class="nav-link" id="nav-color" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
             routerLink="/">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="role!='ADMIN' ">
           <a class="nav-link" id="nav-color" [routerLinkActive]="['active']" routerLink="/products">Products</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="role!='ADMIN'">
           <a class="nav-link" id="nav-color" [routerLinkActive]="['active']" routerLink="/cart">Cart ({{amountOfProducts}}) </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="role!='ADMIN' && !token">
           <a class="nav-link" id="nav-color" [routerLinkActive]="['active']" routerLink="auth/login">Login</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="role!='ADMIN' && !token">
           <a class="nav-link" id="nav-color" [routerLinkActive]="['active']" routerLink="auth/register">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="role=='ADMIN' && !token">
+          <a class="nav-link" id="nav-color" [routerLinkActive]="['active']" routerLink="promoCodes" >Promo Code</a>
+        </li>
+        <li class="nav-item" *ngIf="token">
+          <a class="nav-link" id="nav-color" style="cursor: pointer;" [routerLinkActive]="['active']" (click)="logout()" >Sign Out</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" id="nav-color" [routerLinkActive]="['active']" routerLink="orders">Orders</a>

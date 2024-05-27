@@ -7,6 +7,7 @@ import { dropdownDirective } from './shared/dropdown.directive';
 // import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 // import { ProductThumbnailComponent } from './products/product-thumbnail/product-thumbnail.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { FormsModule } from '@angular/forms';
 // import { HomeComponent } from './home/home.component';
 // import { CartComponent } from './cart/cart.component';
 // import { LoginComponent } from './auth/login/login.component';
@@ -23,7 +24,8 @@ import { NavigationComponent } from './navigation/navigation.component';
   ],
   imports: [
     CommonModule,
-    NavigationComponent
+    NavigationComponent,
+    FormsModule
 //     HomeComponent,
 //     CartComponent,
 //     LoginComponent,

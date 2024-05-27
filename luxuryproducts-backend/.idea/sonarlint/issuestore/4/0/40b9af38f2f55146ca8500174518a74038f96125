@@ -1,0 +1,15 @@
+
+]	java:S107
+"AConstructor has 8 parameters, which is greater than 7 authorized.(Ùà½¨8Ì°Ğú1
+E
+java:S1068"(Remove this unused "code" private field.(²âèú8Û¾¦Ğú1
+N
+java:S1068"1Remove this unused "discountValue" private field.(¹É®·8à‘¨Ğú1
+J
+java:S1068"-Remove this unused "validFrom" private field.(¸šĞ‹8à‘¨Ğú1
+K
+java:S1068".Remove this unused "validUntil" private field.(šˆÏ˜8à‘¨Ğú1
+N
+java:S1068",Remove this unused "maxUsage" private field.(ˆó‘šüÿÿÿÿ8à‘¨Ğú1
+R
+java:S1068"0Remove this unused "currentUsage" private field.(ôàÎÿÿÿÿÿ8à‘¨Ğú1
